@@ -1,0 +1,16 @@
+{
+  "name": "ember-infinite-pagination",
+  "author": "Jeremy Walker",
+  "version": "0.0.1",
+  "description": "Infinite Pagination for EmberJS",
+  "main": "ember.infinite-pagination.min.js",
+  "keywords": [
+    "emberjs",
+    "pagination",
+    "infinite pagination"
+  ],
+  "repository" : {
+    "type" : "git",
+    "url" : "git@github.com:iHiD/ember-infinite-pagination.git"
+  } 
+}
