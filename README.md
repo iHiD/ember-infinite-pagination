@@ -52,6 +52,7 @@ By default, the current page is added to the request. You can add more parameter
 paginationParams: function(){
     $.extend @._super(), {searchCriteria: $('.search').val()}
 }
+```
 
 ### Searching
 
@@ -65,7 +66,7 @@ didInsertElement: function() {
 }
 ```
 
-This resets the page to #1. You'll need to add whatever parameters you need as per above.
+This resets the page to 1. You'll need to add whatever parameters you need as per above.
 
 ## Contributing
 
