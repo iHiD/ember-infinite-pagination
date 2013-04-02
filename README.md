@@ -7,28 +7,21 @@ Please add issues galore as I intend to make this good :smiley:
 
 ## Usage
 
-In your route: 
+In your route, you need to setup the controller to have the correct data. Simply pass in your store, model and controller, and the data will be loaded from your paginationParams (see under config).
 ```
-App.BlogPostsRoute = Ember.Route.extend
-
-  setupController: (controller, model) ->
-      IHID.InfinitePagination.setupRoute(Meducation.store, Meducation.Resource, controller)
-```
-      
-In your controller:
-```
-Meducation.ResourcesController = Ember.ArrayController.extend(
-  IHID.InfinitePagination.ControllerMixin,
-
-  # Some logic for whether more items can be loaded. 
-  # Defaults to: 
-  canLoadMore: (->
-    @get('currentPage') < 10
-  ).property('currentPage')
-)
+App.BlogPostsRoute = Ember.Route.extend({
+  setupController: function(controller) {
+    IHID.InfinitePagination.setupRoute(App.store, App.BlogPost, controller)
+  }
+})
 ```
       
-In your template:
+In your controller, extend the controller mixin:
+```
+Meducation.ResourcesController = Ember.ArrayController.extend(IHID.InfinitePagination.ControllerMixin)
+```
+      
+In your template, use the LoadMoreView, e.g.:
 
 ```
 {{#each blog_post in controller}}
@@ -37,6 +30,53 @@ In your template:
 
 {{view IHID.InfinitePagination.LoadMoreView}}
 ```
+
+## Configuration
+
+You can override certain options in the controller.
+
+### Can I load more data?
+
+Specify whether more data can be loaded from the server. Defaults to:
+
+```
+canLoadMore:function() {
+    @get('currentPage') < 10
+}.property('currentPage')
+```
+
+### Changing the parameters
+
+By default, the current page is added to the request. You can add more parameters like so:
+```
+paginationParams: function(){
+    $.extend @._super(), {searchCriteria: $('.search').val()}
+}
+
+### Searching
+
+There is some build in support for searching. To implement it, add the following to your view (you'll need a textbox with a class of search in your template).
+
+```
+didInsertElement: function() {
+    $('.search').keypress(function(){
+      Ember.tryInvoke(@get('controller'), 'search')
+    })
+}
+```
+
+This resets the page to #1. You'll need to add whatever parameters you need as per above.
+
+## Contributing
+
+Add issues, send pull requests. All the normal stuff. VERY happy to hear from you!
+
+As normal:
+* Fork
+* Branch
+* Hack
+* Commit
+* Pull request
 
 ## Credit
 
