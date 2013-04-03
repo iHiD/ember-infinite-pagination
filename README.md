@@ -41,7 +41,7 @@ Specify whether more data can be loaded from the server. Defaults to:
 
 ``` javascript
 canLoadMore:function() {
-    @get('currentPage') < 10
+    this.get('currentPage') < 10
 }.property('currentPage')
 ```
 
@@ -50,7 +50,7 @@ canLoadMore:function() {
 By default, the current page is added to the request. You can add more parameters like so:
 ``` javascript
 paginationParams: function(){
-    $.extend @._super(), {searchCriteria: $('.search').val()}
+    $.extend(this._super(), {searchCriteria: $('.search').val()})
 }
 ```
 
@@ -61,7 +61,7 @@ There is some build in support for searching. To implement it, add the following
 ``` javascript
 didInsertElement: function() {
     $('.search').keypress(function(){
-      Ember.tryInvoke(@get('controller'), 'search')
+      Ember.tryInvoke(this.get('controller'), 'search')
     })
 }
 ```
