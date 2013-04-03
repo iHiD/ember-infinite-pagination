@@ -68,6 +68,15 @@ didInsertElement: function() {
 
 This resets the page to 1. You'll need to add whatever parameters you need as per above.
 
+## Development
+
+This project uses [Grunt.js](http://gruntjs.com/), so after checking out the repo, a simple
+`npm install` will install all dependencies needed to build this library.
+
+The source files are located in `lib/src` and the tests are in `lib/tests`.
+
+To run the tests invoke `grunt test`.
+
 ## Contributing
 
 Add issues, send pull requests. All the normal stuff. VERY happy to hear from you!
