@@ -7,30 +7,6 @@ window.IHID.InfinitePagination =
 
     controller.set 'content', content
 
-IHID.InfinitePagination.ControllerMixin = Ember.Mixin.create Ember.Evented,
-  canLoadMore: true
-  currentPage: 1
-  isLoading: false
-  resetLoadMore: -> @set('currentPage', 1)
-
-  loadMore: ->
-    return unless @get('canLoadMore')
-    @incrementProperty('currentPage')
-    @updateData()
-
-  search: ->
-    @set('currentPage', 1)
-    @get('model').clear()
-    @updateData()
-
-  updateData: ->
-      @set('isLoading', true)
-      @get('model').type.find(@paginationParams()).addObserver 'isLoaded', =>
-          @set('isLoading', false)
-  
-  paginationParams: ->
-    page: @get('currentPage')
-
 template = """
 {{#if isLoading}}
   Fetching some more stuff <img width="10" src="img/ajax-loader.gif" />
