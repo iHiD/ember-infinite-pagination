@@ -1,13 +1,3 @@
-###!
- * Infinite Pagination for EmberJS
- * (c) 2013 Jeremy Walker <jez.walker@gmail.com>
- * MIT Licensed.
- *
- * Written by iHiD (Jeremy Walker) - Based on an idea by @pangratz
- *
- * http://github.com/iHiD/ember-infinite-pagination
-###
-
 window.IHID or= {}
 window.IHID.InfinitePagination =
 
