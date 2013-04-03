@@ -12,7 +12,7 @@ template = """
   Fetching some more stuff <img width="10" src="img/ajax-loader.gif" />
 {{else}}
   {{#if canLoadMore}}
-    <a {{action "loadMore" target="controller" }}> click to load more</a>
+    <a {{action "loadMore" }}> click to load more</a>
   {{else}}
     <strong><em>no more items</em></strong>
   {{/if}}
