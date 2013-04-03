@@ -58,7 +58,14 @@ module.exports = function(grunt) {
       }
     },
     coffeelint: {
-      lib: ['lib/**/*.coffee']
+      lib: ['lib/**/*.coffee'],
+      options: {
+        max_line_length: {
+          value: 120,
+          level: 'warn',
+          message: 'Line exceeds maximum allowed length'
+        }
+      }
     },
     watch: {
       gruntfile: {
