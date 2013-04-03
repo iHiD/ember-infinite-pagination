@@ -1,8 +1,8 @@
 window.IHID or= {}
 window.IHID.InfinitePagination =
 
-  setupRoute: (store, model, controller) ->
-    content = store.filter model, controller.paginationParams(), (data) ->
+  setupRoute: (model, controller) ->
+    content = model.filter controller.paginationParams(), (data) ->
       true
 
     controller.set 'content', content
