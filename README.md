@@ -8,7 +8,7 @@ Please add issues galore as I intend to make this good :smiley:
 ## Usage
 
 In your route, you need to setup the controller to have the correct data. Simply pass in your store, model and controller, and the data will be loaded from your paginationParams (see under config).
-```
+``` javascript
 App.BlogPostsRoute = Ember.Route.extend({
   setupController: function(controller) {
     IHID.InfinitePagination.setupRoute(App.store, App.BlogPost, controller)
@@ -17,13 +17,13 @@ App.BlogPostsRoute = Ember.Route.extend({
 ```
       
 In your controller, extend the controller mixin:
-```
+``` javascript
 Meducation.ResourcesController = Ember.ArrayController.extend(IHID.InfinitePagination.ControllerMixin)
 ```
       
 In your template, use the LoadMoreView, e.g.:
 
-```
+``` handlebars
 {{#each blog_post in controller}}
   {{render 'blog_post' blog_post}}
 {{/each}}
@@ -39,7 +39,7 @@ You can override certain options in the controller.
 
 Specify whether more data can be loaded from the server. Defaults to:
 
-```
+``` javascript
 canLoadMore:function() {
     @get('currentPage') < 10
 }.property('currentPage')
@@ -48,7 +48,7 @@ canLoadMore:function() {
 ### Changing the parameters
 
 By default, the current page is added to the request. You can add more parameters like so:
-```
+``` javascript
 paginationParams: function(){
     $.extend @._super(), {searchCriteria: $('.search').val()}
 }
@@ -58,7 +58,7 @@ paginationParams: function(){
 
 There is some build in support for searching. To implement it, add the following to your view (you'll need a textbox with a class of search in your template).
 
-```
+``` javascript
 didInsertElement: function() {
     $('.search').keypress(function(){
       Ember.tryInvoke(@get('controller'), 'search')
