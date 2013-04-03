@@ -5,13 +5,19 @@ This adds infinite pagination to [Ember JS](http://emberjs.com/). It works, but 
 
 Please add issues galore as I intend to make this good :smiley:
 
+## Installation
+
+You can download the [latest version](https://raw.github.com/iHiD/ember-infinite-pagination/master/bin/ember-infinite-pagination.min.js) from Github. Don't link to this file as Github won't send JS headers.
+
+You also need jQuery.inView, which you can get the [latest version](https://raw.github.com/protonet/jquery.inview/master/jquery.inview.min.js) from their [Github Repository](https://github.com/protonet/jquery.inview).
+
 ## Usage
 
 In your route, you need to setup the controller to have the correct data. Simply pass in your store, model and controller, and the data will be loaded from your paginationParams (see under config).
 ``` javascript
 App.BlogPostsRoute = Ember.Route.extend({
   setupController: function(controller) {
-    IHID.InfinitePagination.setupRoute(App.store, App.BlogPost, controller)
+    IHID.InfinitePagination.setupRoute(App.BlogPost, controller)
   }
 })
 ```
