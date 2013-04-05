@@ -2,10 +2,12 @@ window.IHID or= {}
 window.IHID.InfinitePagination =
 
   setupRoute: (model, controller) ->
-    content = model.filter controller.paginationParams(), (data) ->
-      true
-
-    controller.set 'content', content
+    content = []
+    Meducation.Resource.find(controller.paginationParams()).addObserver "isLoaded", ->
+      content.addObjects(this)
+    
+    controller.set 'search_model', model
+    controller.set "content", content
 
 template = """
 {{#if isLoading}}

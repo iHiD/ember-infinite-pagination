@@ -12,9 +12,11 @@
     window.IHID.InfinitePagination = {
         setupRoute: function(model, controller) {
             var content;
-            content = model.filter(controller.paginationParams(), function(data) {
-                return true;
+            content = [];
+            Meducation.Resource.find(controller.paginationParams()).addObserver("isLoaded", function() {
+                return content.addObjects(this);
             });
+            controller.set("search_model", model);
             return controller.set("content", content);
         }
     };
@@ -53,10 +55,12 @@
             return this.updateData();
         },
         updateData: function() {
-            var _this = this;
+            var controller;
             this.set("isLoading", true);
-            return this.get("model").type.find(this.paginationParams()).addObserver("isLoaded", function() {
-                return _this.set("isLoading", false);
+            controller = this;
+            return this.get("search_model").find(this.paginationParams()).addObserver("isLoaded", function() {
+                controller.set("isLoading", false);
+                return controller.get("content").addObjects(this);
             });
         },
         paginationParams: function() {
