@@ -1,10 +1,13 @@
 window.IHID or= {}
 window.IHID.InfinitePagination =
 
-  setupRoute: (model, controller) ->
+  setupRoute: (model, controller, preload) ->
     content = []
-    Meducation.Resource.find(controller.paginationParams()).addObserver "isLoaded", ->
-      content.addObjects(this)
+    contorller.set('currentPage', 1)
+    if preload
+
+      model.find(controller.paginationParams()).addObserver "isLoaded", ->
+        content.addObjects(this)
     
     controller.set 'search_model', model
     controller.set "content", content
@@ -24,5 +27,5 @@ template = """
 IHID.InfinitePagination.LoadMoreView = Ember.View.extend
   template: Ember.Handlebars.compile(template)
   didInsertElement: ->
-    @$().bind 'inview', (event, isInView, visiblePartX, visiblePartY) =>
+    @$().bind 'inview', (e, isInView) =>
       Ember.tryInvoke(@get('controller'), 'loadMore') if isInView

@@ -9,6 +9,10 @@ IHID.InfinitePagination.ControllerMixin = Ember.Mixin.create Ember.Evented,
     @incrementProperty('currentPage')
     @updateData()
 
+  hasItems: (->
+    @get('length') > 0
+  ).property('length')
+
   search: ->
     @set('currentPage', 1)
     @get('model').clear()

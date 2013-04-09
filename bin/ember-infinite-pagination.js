@@ -10,12 +10,15 @@
     var template;
     window.IHID || (window.IHID = {});
     window.IHID.InfinitePagination = {
-        setupRoute: function(model, controller) {
+        setupRoute: function(model, controller, preload) {
             var content;
             content = [];
-            Meducation.Resource.find(controller.paginationParams()).addObserver("isLoaded", function() {
-                return content.addObjects(this);
-            });
+            contorller.set("currentPage", 1);
+            if (preload) {
+                model.find(controller.paginationParams()).addObserver("isLoaded", function() {
+                    return content.addObjects(this);
+                });
+            }
             controller.set("search_model", model);
             return controller.set("content", content);
         }
@@ -25,7 +28,7 @@
         template: Ember.Handlebars.compile(template),
         didInsertElement: function() {
             var _this = this;
-            return this.$().bind("inview", function(event, isInView, visiblePartX, visiblePartY) {
+            return this.$().bind("inview", function(e, isInView) {
                 if (isInView) {
                     return Ember.tryInvoke(_this.get("controller"), "loadMore");
                 }
@@ -49,6 +52,9 @@
             this.incrementProperty("currentPage");
             return this.updateData();
         },
+        hasItems: function() {
+            return this.get("length") > 0;
+        }.property("length"),
         search: function() {
             this.set("currentPage", 1);
             this.get("model").clear();
