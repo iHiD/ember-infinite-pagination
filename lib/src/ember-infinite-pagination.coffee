@@ -3,7 +3,7 @@ window.IHID.InfinitePagination =
 
   setupRoute: (model, controller, preload) ->
     content = []
-    contorller.set('currentPage', 1)
+    controller.set('currentPage', 1)
     if preload
 
       model.find(controller.paginationParams()).addObserver "isLoaded", ->
