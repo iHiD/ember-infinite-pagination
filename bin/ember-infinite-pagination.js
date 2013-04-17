@@ -13,14 +13,12 @@
         setupRoute: function(model, controller, preload) {
             var content;
             content = [];
-            contorller.set("currentPage", 1);
+            controller.set("currentPage", 1);
+            controller.set("searchModel", model);
+            controller.set("content", content);
             if (preload) {
-                model.find(controller.paginationParams()).addObserver("isLoaded", function() {
-                    return content.addObjects(this);
-                });
+                return controller.updateData();
             }
-            controller.set("search_model", model);
-            return controller.set("content", content);
         }
     };
     template = '{{#if isLoading}}\n  Fetching some more stuff <img width="10" src="img/ajax-loader.gif" />\n{{else}}\n  {{#if canLoadMore}}\n    <a {{action "loadMore" }}> click to load more</a>\n  {{else}}\n    <strong><em>no more items</em></strong>\n  {{/if}}\n{{/if}}';
@@ -53,8 +51,8 @@
             return this.updateData();
         },
         hasItems: function() {
-            return this.get("length") > 0;
-        }.property("length"),
+            return this.get("content.length") > 0;
+        }.property("content.length"),
         search: function() {
             this.set("currentPage", 1);
             this.get("model").clear();
@@ -64,7 +62,7 @@
             var controller;
             this.set("isLoading", true);
             controller = this;
-            return this.get("search_model").find(this.paginationParams()).addObserver("isLoaded", function() {
+            return this.get("searchModel").find(this.paginationParams()).addObserver("isLoaded", function() {
                 controller.set("isLoading", false);
                 return controller.get("content").addObjects(this);
             });

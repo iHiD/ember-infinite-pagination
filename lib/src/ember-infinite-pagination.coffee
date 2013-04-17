@@ -3,14 +3,11 @@ window.IHID.InfinitePagination =
 
   setupRoute: (model, controller, preload) ->
     content = []
-    contorller.set('currentPage', 1)
-    if preload
-
-      model.find(controller.paginationParams()).addObserver "isLoaded", ->
-        content.addObjects(this)
-    
-    controller.set 'search_model', model
+    controller.set('currentPage', 1)
+    controller.set 'searchModel', model
     controller.set "content", content
+
+    controller.updateData() if preload
 
 template = """
 {{#if isLoading}}
