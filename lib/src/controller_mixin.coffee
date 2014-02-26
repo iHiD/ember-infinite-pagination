@@ -21,9 +21,9 @@ IHID.InfinitePagination.ControllerMixin = Ember.Mixin.create Ember.Evented,
   updateData: ->
     @set('isLoading', true)
     controller = @
-    @get('searchModel').find(@paginationParams()).addObserver 'isLoaded', ->
+    @get('store').find(@get("searchModel"), @paginationParams()).then (values)->
       controller.set('isLoading', false)
-      controller.get('content').addObjects(@)
+      controller.pushObjects(values.get('content'))
   
   paginationParams: ->
     page: @get('currentPage')
